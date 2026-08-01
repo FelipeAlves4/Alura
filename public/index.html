@@ -1,343 +1,112 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Encontre uma configuração gamer equilibrada para o seu orçamento.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <title>Gamersflix</title>
+    <title>GamersFlix | Seu PC gamer começa aqui</title>
 </head>
 
 <body>
-    <header id="header">
-        <h1><i class="fas fa-gamepad"></i> GAMERSFLIX</h1>
+    <a class="skip-link" href="#montador">Ir para o montador</a>
+    <header class="site-header">
+        <a class="brand" href="#inicio" aria-label="GamersFlix, início"><i class="fa-solid fa-gamepad"></i><span>GAMERS<span>FLIX</span></span></a>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-controls="main-nav" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+        <nav id="main-nav" class="main-nav" aria-label="Navegação principal">
+            <a href="#montador">Montador</a>
+            <a href="#comparar">Comparar</a>
+            <a href="#guias">Guias</a>
+            <a href="#contato">Contato</a>
+        </nav>
+        <a class="header-cta" href="#montador">Montar PC <i class="fa-solid fa-arrow-right"></i></a>
     </header>
 
-    <!-- Ícone de Menu -->
-    <div id="menu-icon" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+    <main>
+        <section id="inicio" class="hero section-shell">
+            <div class="hero-copy">
+                <p class="eyebrow"><span></span> Hardware sem complicação</p>
+                <h1>Seu próximo <em>PC Gamer</em> começa com uma escolha melhor.</h1>
+                <p class="hero-description">Escolha seu orçamento e receba uma configuração equilibrada para jogar hoje — com componentes que fazem sentido juntos.</p>
+                <div class="hero-actions">
+                    <a class="button primary" href="#montador">Encontrar meu setup <i class="fa-solid fa-arrow-down"></i></a>
+                    <a class="text-link" href="#comparar">Ver custo-benefício <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <dl class="hero-stats">
+                    <div><dt>1080p</dt><dd>Full HD sem limites</dd></div>
+                    <div><dt>1440p</dt><dd>Mais definição</dd></div>
+                    <div><dt>4K</dt><dd>Para quem quer ir além</dd></div>
+                </dl>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="glow glow-one"></div><div class="glow glow-two"></div>
+                <div class="pc-case"><span class="case-top"></span><span class="case-panel"></span><span class="fan fan-a"></span><span class="fan fan-b"></span><span class="gpu-line"></span></div>
+                <div class="floating-chip chip-cpu"><i class="fa-solid fa-microchip"></i><span>CPU</span></div>
+                <div class="floating-chip chip-gpu"><i class="fa-solid fa-bolt"></i><span>GPU</span></div>
+                <div class="fps-card"><strong>144</strong><span>FPS alvo</span><i class="fa-solid fa-chart-line"></i></div>
+            </div>
+        </section>
 
-    <!-- Menu Lateral -->
-    <div id="side-menu">
-        <ul>
-            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="#destaques"><i class="fas fa-star"></i> Destaques</a></li>
-            <li><a href="#monitores"><i class="fas fa-desktop"></i> Monitores</a></li>
-            <li><a href="#placas-mae"><i class="fas fa-microchip"></i> Placas-Mãe</a></li>
-            <li><a href="#placas-video"><i class="fas fa-video"></i> Placas de Vídeo</a></li>
-            <li><a href="#noticias"><i class="fas fa-newspaper"></i> Notícias</a></li>
-            <li><a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
-            <li><a href="#contato"><i class="fas fa-envelope"></i> Contato</a></li>
-        </ul>
-    </div>
+        <section id="montador" class="builder-section section-shell">
+            <div class="section-heading"><p class="eyebrow"><span></span> Montador inteligente</p><h2>Qual é o seu orçamento?</h2><p>Arraste o controle ou escolha uma faixa. Nós cuidamos do equilíbrio entre desempenho, peças e espaço para upgrade.</p></div>
+            <div class="builder-layout">
+                <div class="budget-panel">
+                    <label for="orcamento">Investimento previsto</label>
+                    <output id="budget-display" for="orcamento">R$ 5.000</output>
+                    <input id="orcamento" type="range" min="3000" max="20000" step="500" value="5000">
+                    <div class="range-labels"><span>R$ 3 mil</span><span>R$ 20 mil+</span></div>
+                    <div class="budget-presets" aria-label="Faixas de orçamento">
+                        <button type="button" data-budget="3500">Entrada<br><strong>R$ 3,5 mil</strong></button>
+                        <button type="button" class="active" data-budget="5000">Equilibrado<br><strong>R$ 5 mil</strong></button>
+                        <button type="button" data-budget="8000">Performance<br><strong>R$ 8 mil</strong></button>
+                        <button type="button" data-budget="12000">Entusiasta<br><strong>R$ 12 mil</strong></button>
+                    </div>
+                    <button id="build-button" class="button primary full" type="button">Gerar recomendação <i class="fa-solid fa-wand-magic-sparkles"></i></button>
+                    <p class="budget-note"><i class="fa-solid fa-circle-info"></i> Valores de referência. Confirme o preço na loja antes de comprar.</p>
+                </div>
+                <div id="configuracoes-container" class="recommendation-area" aria-live="polite"></div>
+            </div>
+        </section>
 
-    <section id="home" class="chamada">
-        <div class="chamada-texto">
-            <h2><i class="fas fa-laptop-code"></i> PC Ideal e PC top de linha</h2>
-            <p>Qual a melhor configuração para um bom PC Gamer, com um preço competitivo? Este guia vai dar indicações
-                das melhores peças e os melhores orçamentos para montar máquinas equilibradas,
-                focadas em um computador com boa performance para jogar e, por consequência,
-                para trabalhar com softwares pesados.</p>
-        </div>
+        <section id="comparar" class="compare-section section-shell">
+            <div class="section-heading split-heading"><div><p class="eyebrow"><span></span> Comparador</p><h2>Peças que entregam mais.</h2></div><p>Confira opções com boa relação entre preço e desempenho, organizadas por categoria.</p></div>
+            <div class="tabs" role="tablist" aria-label="Categorias de componentes">
+                <button type="button" class="tab active" role="tab" aria-selected="true" data-category="placa-video"><i class="fa-solid fa-display"></i> Placas de vídeo</button>
+                <button type="button" class="tab" role="tab" aria-selected="false" data-category="processador"><i class="fa-solid fa-microchip"></i> Processadores</button>
+                <button type="button" class="tab" role="tab" aria-selected="false" data-category="monitor"><i class="fa-solid fa-desktop"></i> Monitores</button>
+                <button type="button" class="tab" role="tab" aria-selected="false" data-category="memoria-ram"><i class="fa-solid fa-memory"></i> Memória RAM</button>
+            </div>
+            <div id="comparacao-container" class="comparison-grid" aria-live="polite"></div>
+        </section>
 
-        <div class="video">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/fyQtUdLE32o?si=qL4VmbnSkEuX8lap"
-                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
-            gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen></iframe>
-        </div>
-    </section>
+        <section id="guias" class="guides-section section-shell">
+            <div class="section-heading"><p class="eyebrow"><span></span> Aprenda antes de comprar</p><h2>Decisões melhores começam aqui.</h2></div>
+            <div class="guide-grid">
+                <article class="guide-card accent-violet"><span class="guide-number">01</span><i class="fa-solid fa-puzzle-piece"></i><h3>Compatibilidade sem mistério</h3><p>Entenda o que conferir entre processador, placa-mãe, memória, fonte e gabinete.</p><a href="#montador">Montar com segurança <i class="fa-solid fa-arrow-right"></i></a></article>
+                <article class="guide-card accent-blue"><span class="guide-number">02</span><i class="fa-solid fa-gauge-high"></i><h3>FPS onde importa</h3><p>Saiba quando investir em placa de vídeo, CPU ou monitor para o seu tipo de jogo.</p><a href="#comparar">Comparar peças <i class="fa-solid fa-arrow-right"></i></a></article>
+                <article class="guide-card accent-orange"><span class="guide-number">03</span><i class="fa-solid fa-arrow-trend-up"></i><h3>Setup pronto para upgrade</h3><p>Faça escolhas que deixam espaço para evoluir o PC sem recomeçar do zero.</p><a href="#contato">Tirar uma dúvida <i class="fa-solid fa-arrow-right"></i></a></article>
+            </div>
+        </section>
 
-    <!-- Nova seção de Destaques -->
-    <section id="destaques" class="moni-custo">
-        <h2 class="beneficio"><i class="fas fa-star"></i> Destaques da Semana</h2>
-        <div class="destaques-container">
-            <div class="destaque-card">
-                <div class="destaque-img">
-                    <img src="https://img.youtube.com/vi/lZ0FppdYAzM/maxresdefault.jpg" alt="Placa de Vídeo Destaque">
-                    <div class="destaque-tag">Mais Popular</div>
-                </div>
-                <div class="destaque-content">
-                    <h3>RTX 4070 Ti: Vale a pena?</h3>
-                    <p>Análise completa da nova placa de vídeo da NVIDIA, comparando preço e desempenho.</p>
-                    <a href="https://www.youtube.com/watch?v=lZ0FppdYAzM" class="destaque-btn" target="_blank">Ver Análise</a>
-                </div>
-            </div>
-            
-            <div class="destaque-card">
-                <div class="destaque-img">
-                    <img src="https://img.youtube.com/vi/vpKCwA_Rcuc/maxresdefault.jpg" alt="Monitor Destaque">
-                    <div class="destaque-tag">Custo-Benefício</div>
-                </div>
-                <div class="destaque-content">
-                    <h3>Monitor 144Hz por menos de R$1000</h3>
-                    <p>Conheça os melhores monitores com alta taxa de atualização para jogos.</p>
-                    <a href="https://www.youtube.com/watch?v=vpKCwA_Rcuc" class="destaque-btn" target="_blank">Ver Análise</a>
-                </div>
-            </div>
-            
-            <div class="destaque-card">
-                <div class="destaque-img">
-                    <img src="https://img.youtube.com/vi/wM08YuIpWxg/maxresdefault.jpg" alt="Placa-Mãe Destaque">
-                    <div class="destaque-tag">Novidade</div>
-                </div>
-                <div class="destaque-content">
-                    <h3>Placas-mãe para Ryzen 7000</h3>
-                    <p>As melhores opções para os novos processadores AMD da série 7000.</p>
-                    <a href="https://www.youtube.com/watch?v=wM08YuIpWxg" class="destaque-btn" target="_blank">Ver Análise</a>
-                </div>
-            </div>
-        </div>
-    </section>
+        <section id="contato" class="contact-section section-shell">
+            <div class="contact-copy"><p class="eyebrow"><span></span> Precisa de ajuda?</p><h2>Seu setup merece uma segunda opinião.</h2><p>Conte o que você pretende jogar ou trabalhar e envie sua dúvida. A gente ajuda a tornar a escolha mais clara.</p><div class="contact-badge"><i class="fa-solid fa-envelope"></i><span><strong>Contato direto</strong><br>contato@gamersflix.com</span></div></div>
+            <form id="contactForm" class="contact-form">
+                <label>Nome<input id="name" name="name" autocomplete="name" required></label>
+                <label>E-mail<input id="email" name="email" type="email" autocomplete="email" required></label>
+                <label>Assunto<select id="subject" name="subject" required><option value="">Selecione uma opção</option><option value="montagem">Montagem de PC</option><option value="upgrade">Upgrade</option><option value="parceria">Parceria</option><option value="outros">Outro assunto</option></select></label>
+                <label>Mensagem<textarea id="message" name="message" maxlength="3000" required placeholder="Ex.: Quero jogar em 1440p e tenho R$ 7.000 de orçamento."></textarea></label>
+                <button class="button primary" type="submit">Enviar mensagem <i class="fa-solid fa-paper-plane"></i></button>
+                <p id="form-feedback" class="form-feedback" role="status"></p>
+            </form>
+        </section>
+    </main>
 
-    <section id="monitores" class="moni-custo">
-        <h2 class="beneficio"><i class="fas fa-desktop"></i> Melhores monitores custo benefício!</h2>
-        <div class="carousel-container">
-            <!-- Botão para ir para a esquerda -->
-            <button class="carousel-btn prev" onclick="scrollCarousel(-1, 'monitores')"><i class="fas fa-chevron-left"></i></button>
-    
-            <!-- Carrossel de imagens -->
-            <div class="carousel monitores">
-                <a href="https://www.youtube.com/watch?v=vpKCwA_Rcuc">
-                    <img src="https://img.youtube.com/vi/vpKCwA_Rcuc/maxresdefault.jpg" alt="Monitor 1" />
-                </a>
-                <a href="https://www.youtube.com/watch?v=fj4fznc3FNc">
-                    <img src="https://img.youtube.com/vi/fj4fznc3FNc/maxresdefault.jpg" alt="Monitor 2" />
-                </a>
-                <a href="https://www.youtube.com/watch?v=fiyxn0JPx3U">
-                    <img src="https://img.youtube.com/vi/fiyxn0JPx3U/maxresdefault.jpg" alt="Monitor 3" />
-                </a>
-                <a href="https://www.youtube.com/watch?v=tGI9RTpNBOc">
-                    <img src="https://img.youtube.com/vi/tGI9RTpNBOc/maxresdefault.jpg" alt="Monitor 4" />
-                </a>
-                <a href="https://www.youtube.com/watch?v=xJ0UTncX378">
-                    <img src="https://img.youtube.com/vi/xJ0UTncX378/maxresdefault.jpg" alt="Monitor 5" />
-                </a>
-            </div>
-    
-            <!-- Botão para ir para a direita -->
-            <button class="carousel-btn next" onclick="scrollCarousel(1, 'monitores')"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    </section>
-    
-
-    <section id="placas-mae" class="moni-custo">
-        <h2 class="beneficio"><i class="fas fa-microchip"></i> Melhores placas-mãe para jogos</h2>
-        <div class="carousel-container">
-            <!-- Botão para ir para a esquerda -->
-            <button class="carousel-btn prev" onclick="scrollCarousel(-1, 'placas-mae')"><i class="fas fa-chevron-left"></i></button>
-    
-            <!-- Carrossel de imagens -->
-            <div class="carousel placas-mae">
-                <a href="https://www.youtube.com/watch?v=wM08YuIpWxg">
-                    <img src="https://img.youtube.com/vi/wM08YuIpWxg/maxresdefault.jpg" alt="Placa-mãe 1" />
-                </a>
-                <a href="https://www.youtube.com/watch?v=5sXUkFYsPqA">
-                    <img src="https://img.youtube.com/vi/5sXUkFYsPqA/maxresdefault.jpg" alt="Placa-mãe 2" />
-                </a>
-                <a href="https://www.youtube.com/watch?v=j_W9SNprPic">
-                    <img src="https://img.youtube.com/vi/j_W9SNprPic/maxresdefault.jpg" alt="Placa-mãe 3" />
-                </a>
-                <a href="https://www.youtube.com/watch?v=8d1slSfod6c">
-                    <img src="https://img.youtube.com/vi/8d1slSfod6c/maxresdefault.jpg" alt="Placa-mãe 4" />
-                </a>
-            </div>
-    
-            <!-- Botão para ir para a direita -->
-            <button class="carousel-btn next" onclick="scrollCarousel(1, 'placas-mae')"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    </section>
-    
-    <section id="placas-video" class="moni-custo">
-        <h2 class="beneficio"><i class="fas fa-video"></i> Melhores placas de vídeo para jogos</h2>
-        <div class="carousel-container">
-            <!-- Botão para ir para a esquerda -->
-            <button class="carousel-btn prev" onclick="scrollCarousel(-1, 'placas-video')"><i class="fas fa-chevron-left"></i></button>
-    
-            <!-- Carrossel de imagens -->
-            <div class="carousel placas-video">
-                <a href="https://www.youtube.com/watch?v=lZ0FppdYAzM">
-                    <img src="https://img.youtube.com/vi/lZ0FppdYAzM/maxresdefault.jpg" alt="Placa de Vídeo 1" />
-                </a>
-                <a href="https://www.youtube.com/watch?v=9VxDnCb0IEs">
-                    <img src="https://img.youtube.com/vi/9VxDnCb0IEs/maxresdefault.jpg" alt="Placa de Vídeo 2" />
-                </a>
-                <a href="https://www.youtube.com/watch?v=CQq2Iy3kKWk">
-                    <img src="https://img.youtube.com/vi/CQq2Iy3kKWk/maxresdefault.jpg" alt="Placa de Vídeo 3" />
-                </a>
-                <a href="https://www.youtube.com/watch?v=nkBnDL6DsLo">
-                    <img src="https://img.youtube.com/vi/nkBnDL6DsLo/maxresdefault.jpg" alt="Placa de Vídeo 4" />
-                </a>
-            </div>
-    
-            <!-- Botão para ir para a direita -->
-            <button class="carousel-btn next" onclick="scrollCarousel(1, 'placas-video')"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    </section>
-    
-    <!-- Nova seção de Notícias -->
-    <section id="noticias" class="moni-custo">
-        <h2 class="beneficio"><i class="fas fa-newspaper"></i> Últimas Notícias</h2>
-        <div class="noticias-container">
-            <div class="noticia-card">
-                <div class="noticia-img">
-                    <img src="https://img.youtube.com/vi/lZ0FppdYAzM/maxresdefault.jpg" alt="Notícia 1">
-                    <div class="noticia-data">15/06/2023</div>
-                </div>
-                <div class="noticia-content">
-                    <h3>NVIDIA anuncia nova linha de placas de vídeo</h3>
-                    <p>A NVIDIA revelou sua nova linha de placas de vídeo com foco em jogos e inteligência artificial.</p>
-                    <a href="#" class="noticia-btn">Ler mais</a>
-                </div>
-            </div>
-            
-            <div class="noticia-card">
-                <div class="noticia-img">
-                    <img src="https://img.youtube.com/vi/wM08YuIpWxg/maxresdefault.jpg" alt="Notícia 2">
-                    <div class="noticia-data">10/06/2023</div>
-                </div>
-                <div class="noticia-content">
-                    <h3>AMD lança novos processadores Ryzen</h3>
-                    <p>A AMD anunciou sua nova linha de processadores Ryzen com melhor desempenho e eficiência energética.</p>
-                    <a href="#" class="noticia-btn">Ler mais</a>
-                </div>
-            </div>
-            
-            <div class="noticia-card">
-                <div class="noticia-img">
-                    <img src="https://img.youtube.com/vi/vpKCwA_Rcuc/maxresdefault.jpg" alt="Notícia 3">
-                    <div class="noticia-data">05/06/2023</div>
-                </div>
-                <div class="noticia-content">
-                    <h3>Monitores com tecnologia OLED chegam ao Brasil</h3>
-                    <p>Fabricantes anunciam novos monitores com tecnologia OLED com preços mais acessíveis para o mercado brasileiro.</p>
-                    <a href="#" class="noticia-btn">Ler mais</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Seção FAQ -->
-    <section id="faq" class="faq-section">
-        <div class="container">
-            <h2 class="section-title">Perguntas Frequentes</h2>
-            <div class="faq-categories">
-                <button class="category-btn active" data-category="all">Todas</button>
-                <button class="category-btn" data-category="videos">Vídeos</button>
-                <button class="category-btn" data-category="account">Conta</button>
-                <button class="category-btn" data-category="payment">Pagamento</button>
-            </div>
-            <div class="faq-container">
-                <div class="faq-item" data-category="videos">
-                    <div class="faq-question">
-                        <h3>Como posso encontrar vídeos específicos?</h3>
-                        <span class="toggle-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Você pode usar a barra de pesquisa no topo da página ou navegar pelas categorias disponíveis. Além disso, temos uma seção de vídeos em destaque que é atualizada semanalmente.</p>
-                    </div>
-                </div>
-                <div class="faq-item" data-category="account">
-                    <div class="faq-question">
-                        <h3>Como posso me inscrever no GamersFlix?</h3>
-                        <span class="toggle-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Para se inscrever, basta clicar no botão "Assinar Agora" e seguir o processo de cadastro. Você pode escolher entre diferentes planos de assinatura.</p>
-                    </div>
-                </div>
-                <div class="faq-item" data-category="payment">
-                    <div class="faq-question">
-                        <h3>Quais são os métodos de pagamento aceitos?</h3>
-                        <span class="toggle-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Aceitamos cartões de crédito, débito e boleto bancário. Todos os pagamentos são processados de forma segura.</p>
-                    </div>
-                </div>
-                <div class="faq-item" data-category="account">
-                    <div class="faq-question">
-                        <h3>Posso cancelar minha assinatura a qualquer momento?</h3>
-                        <span class="toggle-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sim, você pode cancelar sua assinatura a qualquer momento através da sua área de conta, sem multa ou taxa adicional.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Contato -->
-    <section id="contato" class="contact-section">
-        <div class="container">
-            <h2 class="section-title">Entre em Contato</h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="info-item">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Email</h3>
-                        <p>contato@gamersflix.com</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-phone"></i>
-                        <h3>Telefone</h3>
-                        <p>(11) 9999-9999</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-clock"></i>
-                        <h3>Horário de Atendimento</h3>
-                        <p>Segunda a Sexta: 9h às 18h</p>
-                    </div>
-                </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Nome</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Assunto</label>
-                        <select id="subject" name="subject" required>
-                            <option value="">Selecione um assunto</option>
-                            <option value="suporte">Suporte Técnico</option>
-                            <option value="comercial">Assuntos Comerciais</option>
-                            <option value="parceria">Propostas de Parceria</option>
-                            <option value="outros">Outros Assuntos</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Mensagem</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Enviar Mensagem</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <button id="topBtn" title="Voltar ao topo"><i class="fas fa-arrow-up"></i></button>
-
-    <footer>
-        <p>Desenvolvido por: <a href="https://www.instagram.com/felipe_alvesrodri/" target="_blank">
-                <i class="fab fa-instagram"></i> Felipe Alves</a></p>
-        <p class="copyright">© 2023 GamersFlix - Todos os direitos reservados</p>
-    </footer>
-
+    <footer><a class="brand" href="#inicio"><i class="fa-solid fa-gamepad"></i><span>GAMERS<span>FLIX</span></span></a><p>Hardware, escolhas e setups melhores.</p><p>© <span id="current-year"></span> GamersFlix</p></footer>
     <script src="script.js"></script>
 </body>
-
 </html>

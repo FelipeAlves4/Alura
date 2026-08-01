@@ -1,241 +1,102 @@
-// Botão de Voltar ao Topo
-var topBtn = document.getElementById("topBtn");
-var header = document.getElementById("header");
-
-window.onscroll = function () {
-    scrollFunction();
-    document.querySelectorAll('section').forEach((section) => {
-        if (window.scrollY + window.innerHeight >= section.offsetTop) {
-          section.classList.add('visible');
-        }
-      });
+const API_BASE_URL = '/api/v1';
+const componentLabels = {
+    processador: ['Processador', 'fa-microchip'], placaVideo: ['Placa de vídeo', 'fa-display'], placaMae: ['Placa-mãe', 'fa-object-group'], memoria: ['Memória RAM', 'fa-memory'], armazenamento: ['Armazenamento', 'fa-hard-drive'], fonte: ['Fonte', 'fa-bolt'], gabinete: ['Gabinete', 'fa-cube']
 };
 
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        topBtn.style.display = "block";
-        header.classList.add("hidden");
-    } else {
-        topBtn.style.display = "none";
-        header.classList.remove("hidden");
-    }
+const state = { budget: 5000, category: 'placa-video' };
+const money = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+const escapeHTML = (value = '') => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' })[character]);
+
+async function request(path, options) {
+    const response = await fetch(`${API_BASE_URL}${path}`, options);
+    if (!response.ok) throw new Error('Não foi possível carregar os dados agora.');
+    return response.json();
 }
 
-topBtn.onclick = function () {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-};
-    
-// Controle do Menu Lateral
-function toggleMenu() {
-    const menuIcon = document.getElementById("menu-icon");
-    const sideMenu = document.getElementById("side-menu");
-    menuIcon.classList.toggle("active");
-    sideMenu.classList.toggle("open");
+function updateBudget(value) {
+    state.budget = Number(value);
+    document.getElementById('orcamento').value = state.budget;
+    document.getElementById('budget-display').textContent = money.format(state.budget);
+    document.querySelectorAll('[data-budget]').forEach((button) => button.classList.toggle('active', Number(button.dataset.budget) === state.budget));
 }
 
-// Efeito Sonoro nos Botões e Links
-const interactiveElements = document.querySelectorAll("a, button");
-
-interactiveElements.forEach(element => {
-    element.addEventListener("mouseenter", () => {
-        const sound = new Audio('https://freesound.org/data/previews/342/342756_5121236-lq.mp3');
-        sound.volume = 0.2; // Reduzir o volume para 20%
-        sound.play();
-    });
-});
-
-// Função unificada para rolar o carrossel
-function scrollCarousel(direction, section = 'monitores') {
-    const carousel = document.querySelector(`.carousel.${section}`);
-    if (!carousel) return;
-    
-    const scrollAmount = 320; // Defina o tamanho do deslocamento
-    carousel.scrollBy({
-        left: direction * scrollAmount,
-        behavior: 'smooth',
-    });
+function renderLoading(container, message) {
+    container.innerHTML = `<div class="loading-card"><div><i class="fa-solid fa-circle-notch fa-spin"></i><p>${escapeHTML(message)}</p></div></div>`;
 }
 
-// Adicionar animação de fade-in para as imagens do carrossel
-document.addEventListener('DOMContentLoaded', function() {
-    const carouselImages = document.querySelectorAll('.carousel img');
-    
-    carouselImages.forEach((img, index) => {
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.5s ease';
-        
-        setTimeout(() => {
-            img.style.opacity = '1';
-        }, 100 * index);
-    });
-    
-    // Adicionar efeito de hover nos links do menu
-    const menuLinks = document.querySelectorAll('#side-menu ul li a');
-    
-    menuLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(10px)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(0)';
-        });
-    });
-    
-    // Funcionalidade do FAQ
-    const faqItems = document.querySelectorAll('.faq-item');
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    
-    // Função para filtrar FAQs por categoria
-    function filterFAQs(category) {
-        faqItems.forEach(item => {
-            if (category === 'all' || item.dataset.category === category) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    }
-    
-    // Event listeners para os botões de categoria
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class de todos os botões
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            // Adiciona active class ao botão clicado
-            button.classList.add('active');
-            // Filtra as FAQs
-            filterFAQs(button.dataset.category);
-        });
-    });
-    
-    // Event listeners para os itens do FAQ
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        
-        question.addEventListener('click', () => {
-            // Fecha todos os outros itens
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            
-            // Alterna o item atual
-            item.classList.toggle('active');
-        });
-    });
-    
-    // Adicionar animação de entrada para os cards de destaque e notícias
-    const cards = document.querySelectorAll('.destaque-card, .noticia-card');
-    
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    cards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(card);
-    });
-    
-    // Adicionar classe 'visible' para animação
-    document.querySelectorAll('.destaque-card, .noticia-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.classList.add('visible');
-        });
-    });
-});
+function renderConfiguration(config) {
+    const parts = Object.entries(config.componentes || {}).filter(([, item]) => item?.nome).map(([key, item]) => {
+        const [label, icon] = componentLabels[key] || [key, 'fa-puzzle-piece'];
+        return `<div class="build-component"><span class="component-icon"><i class="fa-solid ${icon}"></i></span><span><small>${label}</small><strong title="${escapeHTML(item.nome)}">${escapeHTML(item.nome)}</strong></span></div>`;
+    }).join('');
+    const performance = config.desempenho || {};
+    const pills = [['1080p', performance.jogos1080p], ['1440p', performance.jogos1440p], ['4K', performance.jogos4k]].filter(([, value]) => value).map(([label, value]) => `<span class="performance-pill">${label}: ${escapeHTML(value)}</span>`).join('');
 
-// Validação e envio do formulário de contato
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = {
-            name: this.querySelector('#name').value,
-            email: this.querySelector('#email').value,
-            subject: this.querySelector('#subject').value,
-            message: this.querySelector('#message').value
-        };
-        
-        try {
-            // Validação básica
-            if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-                showMessage('Por favor, preencha todos os campos do formulário.', 'error');
-                return;
-            }
-            
-            // Envia o formulário usando a API
-            const response = await API.contact.sendMessage(formData);
-            
-            if (response.success) {
-                showMessage('Mensagem enviada com sucesso!', 'success');
-                this.reset();
-            } else {
-                showMessage('Erro ao enviar mensagem. Tente novamente.', 'error');
-            }
-        } catch (error) {
-            console.error('Erro ao enviar formulário:', error);
-            showMessage('Erro ao enviar mensagem. Tente novamente.', 'error');
-        }
-    });
+    return `<article class="recommendation-card"><div class="rec-top"><div><span class="rec-label">Recomendação para você</span><h3>${escapeHTML(config.nome)}</h3></div><div class="rec-price"><span>Faixa estimada</span><strong>${money.format(config.precoTotal || state.budget)}</strong></div></div><p class="rec-description">${escapeHTML(config.descricao)}</p><div class="build-components">${parts}</div><div class="rec-footer">${pills || '<span class="performance-pill">Configuração equilibrada</span>'}</div></article>`;
 }
 
-// Função para mostrar mensagens de feedback
-function showMessage(message, type = 'success') {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${type}`;
-    messageDiv.innerHTML = `
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-        <p>${message}</p>
-    `;
-    
-    document.body.appendChild(messageDiv);
-    
-    // Remove a mensagem após 5 segundos
-    setTimeout(() => {
-        messageDiv.remove();
-    }, 5000);
-}
-
-// Função para carregar vídeos da API
-async function loadVideos() {
+async function loadRecommendation() {
+    const container = document.getElementById('configuracoes-container');
+    renderLoading(container, 'Analisando o melhor equilíbrio para o seu setup...');
     try {
-        const videos = await API.videos.getAll();
-        updateVideoSection(videos);
+        const configurations = await request(`/configuracoes/orcamento/${state.budget}`);
+        container.innerHTML = configurations.length ? renderConfiguration(configurations[0]) : '<div class="empty-card">Nenhuma configuração foi encontrada nessa faixa.</div>';
     } catch (error) {
-        console.error('Erro ao carregar vídeos:', error);
+        container.innerHTML = '<div class="empty-card"><div><i class="fa-solid fa-triangle-exclamation"></i><p>Não foi possível gerar a recomendação agora. Tente novamente.</p></div></div>';
     }
 }
 
-// Função para atualizar a seção de vídeos
-function updateVideoSection(videos) {
-    const videoContainer = document.querySelector('.video-container');
-    if (!videoContainer) return;
-    
-    videoContainer.innerHTML = videos.map(video => `
-        <div class="video-card">
-            <img src="${video.thumbnail}" alt="${video.title}">
-            <h3>${video.title}</h3>
-            <p>${video.description}</p>
-            <a href="${video.url}" class="watch-btn">Assistir</a>
-        </div>
-    `).join('');
+function renderComponent(component) {
+    const efficiency = Math.min(10, Number(component.desempenho?.custoBeneficio) || 0);
+    const score = Number(component.desempenho?.nota) || 0;
+    return `<article class="component-card"><div class="component-card-top"><div><h3>${escapeHTML(component.nome)}</h3><p>${escapeHTML(component.marca || '')} ${component.modelo ? `· ${escapeHTML(component.modelo)}` : ''}</p></div><span class="score">${efficiency.toFixed(1)}</span></div><p>${escapeHTML(component.descricao || 'Uma opção selecionada pelo custo-benefício.')}</p><div class="component-price">${money.format(component.preco || 0)}${component.precoAnterior ? ` <del>${money.format(component.precoAnterior)}</del>` : ''}</div><div class="meter-label"><span>Custo-benefício</span><span>${efficiency.toFixed(1)}/10</span></div><div class="meter"><span style="width:${efficiency * 10}%"></span></div><div class="meter-label"><span>Desempenho</span><span>${score.toFixed(1)}/10</span></div><div class="meter"><span style="width:${score * 10}%"></span></div></article>`;
 }
 
-// Carrega os vídeos quando a página é carregada
-document.addEventListener('DOMContentLoaded', loadVideos);
+async function loadComparison() {
+    const container = document.getElementById('comparacao-container');
+    renderLoading(container, 'Selecionando peças com o melhor custo-benefício...');
+    try {
+        const components = await request(`/componentes?categoria=${encodeURIComponent(state.category)}&limit=6&sort=-desempenho.custoBeneficio`);
+        container.innerHTML = components.length ? components.map(renderComponent).join('') : '<div class="empty-card">Não encontramos opções nesta categoria ainda.</div>';
+    } catch (error) {
+        container.innerHTML = '<div class="empty-card">Não foi possível carregar a comparação agora.</div>';
+    }
+}
+
+async function submitContact(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const feedback = document.getElementById('form-feedback');
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    feedback.className = 'form-feedback';
+    feedback.textContent = 'Enviando sua mensagem...';
+    try {
+        const result = await request('/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
+        feedback.textContent = result.message || 'Mensagem enviada com sucesso!';
+        feedback.classList.add('success');
+        form.reset();
+    } catch (error) {
+        feedback.textContent = 'Não foi possível enviar. Revise os campos e tente novamente.';
+        feedback.classList.add('error');
+    } finally {
+        button.disabled = false;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    const menuButton = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('main-nav');
+    const setMenu = (open) => { nav.classList.toggle('open', open); menuButton.setAttribute('aria-expanded', String(open)); menuButton.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu'); menuButton.innerHTML = `<i class="fa-solid fa-${open ? 'xmark' : 'bars'}"></i>`; };
+    menuButton.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+    nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); menuButton.focus(); } });
+    document.getElementById('orcamento').addEventListener('input', (event) => updateBudget(event.target.value));
+    document.querySelectorAll('[data-budget]').forEach((button) => button.addEventListener('click', () => { updateBudget(button.dataset.budget); loadRecommendation(); }));
+    document.getElementById('build-button').addEventListener('click', loadRecommendation);
+    document.querySelectorAll('.tab').forEach((tab) => tab.addEventListener('click', () => { state.category = tab.dataset.category; document.querySelectorAll('.tab').forEach((item) => { const active = item === tab; item.classList.toggle('active', active); item.setAttribute('aria-selected', String(active)); }); loadComparison(); }));
+    document.getElementById('contactForm').addEventListener('submit', submitContact);
+    loadRecommendation();
+    loadComparison();
+});

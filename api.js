@@ -88,5 +88,10 @@ const API = {
     }
 };
 
+// Tornar API disponível globalmente para compatibilidade
+if (typeof window !== 'undefined') {
+    window.API = API;
+}
+
 // Exportar a API
 export default API; 
